@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete User</h1>
+
+<p style="color: gray; margin-bottom: 10px;">
+    Remove a user account from the system
+</p>
+
+<p style="color: #ff6b6b; margin-bottom: 20px;">
+     Restricted: Admin Only
+</p>
+
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+    {% if message %}
+        <div class="{{ 'error-message' if 'not' in message.lower() or 'permission' in message.lower() else 'success-message' }}">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        <div style="margin-bottom: 16px;">
+            <label>User to delete</label><br>
+            <input name="user" style="width: 100%; padding: 8px;">
+        </div>
+
+        <button type="submit">Delete User</button>
+    </form>
+</div>
+{% endblock %}

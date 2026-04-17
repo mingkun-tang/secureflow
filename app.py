@@ -132,25 +132,59 @@ def account():
 
 @app.route("/delete_user", methods=["GET", "POST"])
 def delete_user():
-    if request.method == "GET":
-        return '''
-        <form method="POST">
-            User to delete: <input name="user">
-            <button type="submit">Delete</button>
-        '''
-    if request.method == "POST":
-        if "user" not in session:
-            return redirect(url_for("login"))
-        
-        user = session["user"]
-        role = users[user]["role"]
+    if "user" not in session:
+        return redirect(url_for("login"))
 
-        if role == "admin":
-            user_to_delete = request.form.get("user")
+    if request.method == "GET":
+        if MODE == "secure" and session.get("role") != "admin":
+            return render_template(
+                "index.html",
+                message="You do not have permission to access this page",
+                mode=MODE
+            )
+        return render_template("delete_user.html", mode=MODE)
+
+    # POST
+    if MODE == "vulnerable":
+        user_to_delete = request.form.get("user")
+
+        if user_to_delete in users:
             del users[user_to_delete]
-            return f"User: {user_to_delete} is deleted from the system"
-        else:
-            return "You Do Not Have Access"
+            return render_template(
+                "delete_user.html",
+                message=f"User {user_to_delete} was deleted",
+                mode=MODE
+            )
+
+        return render_template(
+            "delete_user.html",
+            message="User not found",
+            mode=MODE
+        )
+
+    # secure mode
+    if session.get("role") != "admin":
+        return render_template(
+            "index.html",
+            message="You do not have permission to access this page",
+            mode=MODE
+        )
+
+    user_to_delete = request.form.get("user")
+
+    if user_to_delete in users:
+        del users[user_to_delete]
+        return render_template(
+            "delete_user.html",
+            message=f"User {user_to_delete} was deleted",
+            mode=MODE
+        )
+
+    return render_template(
+        "delete_user.html",
+        message="User not found",
+        mode=MODE
+    )
         
 @app.route("/change_role", methods=["GET", "POST"])
 def change_role():
