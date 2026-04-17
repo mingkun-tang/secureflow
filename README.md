@@ -1,59 +1,62 @@
 # SecureFlow - Backend API Security Project
 
 ## Overview
-Secureflow is a backend-focused web application I built to simulate real-world security vulnerabilities and understand how they can be exploited and fixed.
 
-The goal of this project is to go beyond just learning concepts and actually see how vulnerabilities like CSRF, IDOR, and broken access control happen in real systems.
+SecureFlow is a backend-focused web application I built to simulate real-world security vulnerabilities.
+
+Instead of just learning what CSRF or IDOR is, I wanted to actually see how these vulnerabilities show up in a system and how they can be exploited.
 
 ---
 
 ## Vulnerabilities I Explored
 
-### 1. CSRF - /api/update_email
-The system allows a logged-in user's email to be changed without verifying user intent. An attacker can trick the user into making this request.
+### 1. CSRF - /api/update_email  
+The system allows a logged-in user's email to be changed without checking if the request was actually made by the user.  
+So if a user clicks on a malicious link, their email can be changed without them knowing.
 
-### 2. IDOR / Broken Access Control - /api/get_user
-The API trusts user input 'user_id' without checking if the user is allowed to access that data. This allows users to view other users' information.
+---
 
-### 3. Missing Authentication - /api/reset_password
-The password reset endpoint does not verify who is making the request. Anyone can reset any user's password using just an email.
+### 2. IDOR / Broken Access Control - /api/get_user  
+The API trusts the user input (user_id) and does not check if the user should have access to that data.  
+This allows users to view other users’ information.
 
-### 4. CSRF + Business Logic Flaw - /admin/delete_user
-Admin actions can be triggered without verifying intent. The system also allows self-deletion and removing the last admin, which can break the system.
+---
+
+### 3. Missing Authentication - /api/reset_password  
+The password reset endpoint does not verify who is making the request.  
+Anyone can reset any user's password just by knowing their email.
+
+---
+
+### 4. CSRF + Business Logic Flaw - /admin/delete_user  
+Admin actions can be triggered without verifying user intent.  
+The system also allows deleting important users like the last admin, which can break the system.
 
 ---
 
 ## Example Attack Chain
 
-One of the main things I focused on was chaining vulnerabilities together: 
+One thing I focused on was how small vulnerabilities can connect together.
 
-1. Use CSRF to change victim's email
-2. Trigger password reset
-3. Take over the account
+For example:
+- Use CSRF to change the victim’s email  
+- Trigger password reset  
+- Take over the account  
 
-This helped me understand how small issues can combine into a serious attack.
+This helped me understand that vulnerabilities are not always dangerous by themselves, but can become serious when combined.
 
 ---
 
-## Fixes / What I learned
+## What I Learned
 
-- Always verify user intent (CSRF protection)
-- Never trust user-controlled input for authorization
-- Authentication is not enough, authorization must be enforced as well
-- Sensitive actions should require stronger verification
-- Security should be designed into the system, not added later
+- Authentication is not enough, authorization must also be checked  
+- The system should not trust user input for access control  
+- Sensitive actions need extra protection (like CSRF tokens)  
+- Security problems often come from how the system is designed  
 
 ---
 
 ## Tech Stack
 
 - Python (Flask)
-- HTML (Jinja2 templates)
-
-
-
-
-
-
-
-
+- HTML (Jinja templates)
