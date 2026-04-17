@@ -17,6 +17,14 @@ Instead of just learning what CSRF or IDOR is, I wanted to actually see how thes
 ### Admin KPI
 ![KPI](screenshots/kpi.png)
 
+---
+
+## How to Run
+
+1. Clone the repo
+2. Install Flask
+3. Run `python app.py`
+4. Open `http://127.0.0.1:5000`
 
 ---
 ## Features
