@@ -6,8 +6,38 @@ SecureFlow is a backend-focused web application I built to simulate real-world s
 
 Instead of just learning what CSRF or IDOR is, I wanted to actually see how these vulnerabilities show up in a system and how they can be exploited.
 
----
+## Screenshots
 
+### Home Page
+![Home Page](screenshots/home.png)
+
+### Attack Demo
+![Attack](screenshots/attack.png)
+
+### Admin KPI
+![KPI](screenshots/kpi.png)
+
+
+---
+## Features
+- Session-based login
+- Role-based access control (user, admin, boss)
+- Secure vs vulnerable mode
+- Admin KPI dashboard
+- Boss financial page
+- Attack demo page
+
+## Demo Flow
+In vulnerable mode:
+1. Login as a normal user
+2. Change your role through `/change_role`
+3. Escalate to boss
+4. Access `/boss/financials`
+
+In secure mode:
+- role checks block unauthorized access
+
+---
 ## Vulnerabilities I Explored
 
 ### 1. CSRF - /api/update_email  
