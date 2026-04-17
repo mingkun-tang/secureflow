@@ -6,8 +6,6 @@ MODE = "secure"
 
 token = secrets.token_urlsafe(32)
 
-
-
 users = {
     "admin": {"password": "admin123", "role": "admin", "email": "admin123@gmail.com"},
     "alice": {"password": "alice123", "role": "user", "email": "alice123@gmail.com"},
@@ -39,19 +37,16 @@ def login():
     if request.method == "GET":
         return render_template("login.html",mode=MODE)
 
-    
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         
-
     if username in users and users[username]["password"] == password:
         session["user"] = username
         session["role"] = users[username]["role"]
         return redirect(url_for("home"))
     else:
         return render_template("login.html", message="Invalid username or password",mode=MODE)
-
 
 
 @app.route("/admin/kpi")
@@ -66,8 +61,8 @@ def admin_kpi():
                 message="You do not have permission to access this page",
                 mode=MODE
             )
-
     return render_template("admin_kpi.html", mode=MODE)
+
 
 @app.route("/boss/financials")
 def boss_financials():
@@ -81,7 +76,6 @@ def boss_financials():
                 message="You do not have permission to access this page",
                 mode=MODE
             )
-
     return render_template("boss_financials.html", mode=MODE)
 
 
@@ -119,7 +113,6 @@ def transfer():
             message=f"Transferred {amount} to {to}!", 
             mode=MODE
             )
-
     return render_template(
         "transfer.html",
         csrf_token=token,
@@ -203,8 +196,6 @@ def change_role():
     )
 
 
-
-
 @app.route("/update_profile", methods = ["GET", "POST"])
 def update_profile():
     if request.method == "GET":
@@ -213,7 +204,6 @@ def update_profile():
         else:
             return render_template("update_profile.html", mode=MODE)
         
-    
     if request.method == "POST":
             if "user" in session:
                 update_email = request.form.get("email")
@@ -223,8 +213,6 @@ def update_profile():
 
             return "Access Denied"
     
-
-
         
 @app.route("/change_password", methods=["GET", "POST"])
 def change_password():
@@ -253,13 +241,6 @@ def change_password():
         message="Invalid password change request",
         mode=MODE
     )
-
-
-
-
-    
-
-
 
 
 if __name__ == "__main__":
