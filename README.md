@@ -4,6 +4,8 @@
 
 SecureFlow is a backend-focused web application I built to simulate how real security vulnerabilities happen in a system.
 
+This project focuses on how backend design decisions lead to real security vulnerabilities.
+
 Instead of only learning what vulnerabilities like CSRF or IDOR are, I wanted to actually see how they appear during development and how small mistakes can turn into bigger security issues.
 
 ---
