@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Attack Demonstration</h1>
+
+<p style="color: gray; margin-bottom: 20px;">
+    This page demonstrates how a normal user can escalate privileges due to insecure backend design.
+</p>
+
+<div class="card">
+    <h2>Privilege Escalation Attack</h2>
+
+    <ol>
+        <li>Login as a normal user (e.g. <b>alice)</b></li>
+        <li>Navigate to <b>/change_role</b></li>
+        <li>Enter role: <b>boss</b></li>
+        <li>Submit the form</li>
+        <li>Navigate to <b>/boss/financials</b></li>
+        <li>Access restricted financial data</li>
+    </ol>
+
+</div>
+
+<div class="card">
+    <h2>Secure Mode Behavior</h2>
+
+    <p>
+        In secure mode, only admin users can modify roles. Proper server-side authorization checks prevent privilege escalation.
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Transfer</h1>
+
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+    {% if message %}
+    <div class="success-message">{{ message }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <div style="margin-bottom: 12px;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <label>Recipient</label><br>
+            <input name="to" style="width: 100%; padding: 8px;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label>Amount</label><br>
+            <input name="amount" style="width: 100%; padding: 8px;">
+        </div>
+
+        <button type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}

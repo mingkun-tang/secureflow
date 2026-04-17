@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Change Role</h1>
+
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+    {% if message %}
+        <div class="success-message">{{ message }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% if session.get("role") == "admin" and mode == "secure" %}
+            <div style="margin-bottom: 12px;">
+                <label>User</label><br>
+                <input name="user" style="width: 100%; padding: 8px;">
+            </div>
+        {% endif %}
+
+        <div style="margin-bottom: 16px;">
+            <label>Role</label><br>
+            <input name="role" style="width: 100%; padding: 8px;">
+        </div>
+
+        <button type="submit">Change Role</button>
+    </form>
+</div>
+{% endblock %}

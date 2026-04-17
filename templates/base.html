@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureFlow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="mode-banner {{ 'mode-secure' if mode == 'secure' else 'mode-vulnerable' }}">
+        Mode: {{ mode|upper }}
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-brand">SecureFlow</div>
+        <div class="nav-links">
+            <a href="/">home</a>
+            <a href="/login">Login</a>
+            <a href="/transfer">Transfer</a>
+            <a href="/update_profile">Update Email</a>
+            <a href="/change_password">Change Password</a>
+            <a href="/change_role">Change Role</a>
+            <a href="/admin/kpi">KPI Dashboard</a>
+            <a href="/boss/financials">Financials</a>
+            <a href="/attack_demo">Attack Demo</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

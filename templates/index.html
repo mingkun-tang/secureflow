@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if message %}
+    <div class="{{ 'error-message' if 'permission' in message else 'success-message' }}">
+        {{ message }}
+    </div>
+{% endif %}
+
+<section class="hero">
+    <h1>SecureFlow</h1>
+    <p>
+        A backend API security project built to simulate real-world vulnerabilities, attack chains, and secure design fixes.
+    </p>
+</section>
+
+<section class="card-grid">
+    <div class="card">
+        <h2>Authentication</h2>
+        <p>Session-based login flow with user and admin roles.</p>
+    </div>
+
+    <div class="card">
+        <h2>Access Control</h2>
+        <p>Examples of IDOR, broken access control, and privilege escalation.</p>
+    </div>
+
+    <div class="card">
+        <h2>Security Flaws</h2>
+        <p>CSRF, insecure password reset, and business logic vulnerabilities</p>
+    </div>
+
+    <div class="card">
+        <h2>Secure Design</h2>
+        <p>Each issue is paired with the reasoning and fix behind it.</p>
+    </div>
+</section>
+
+
+<section class="insight-section">
+    <h2>Security Insights</h2>
+    <p class="insight-subtitle">
+        SecureFlow was built to explore how backend vulnerabilities actually happen in real systems,
+        and how small mistakes can turn into serious security issues.
+    </p>
+
+    <div class="insight-grid">
+        <div class="insight-card">
+            <h3>CSRF</h3>
+            <p>State-changing actions must verify user intent, not just session identity.</p>
+        </div>
+
+        <div class="insight-card">
+            <h3>IDOR</h3>
+            <p>User-controlled identifiers should never decide access without server-side authorization checks.</p>
+        </div>
+
+        <div class="insight-card">
+            <h3>Broken Access Control</h3>
+            <p>Authentication is not enough. Systems must enforce what each user is actually allowed to do.</p>
+        </div>
+
+        <div class="insight-card">
+            <h3>Attack Chains</h3>
+            <p>Small flaws can combine into major impact, like account takeover through email change and password reset.</p>
+        </div>
+    </div>
+</section>
+
+<section class="attack-chain-section">
+    <h2>Featured Attack Chain</h2>
+    <p class="attack-chain-subtitle">
+        One of the main ideas behind SecureFlow is showing how small vulnerabilities can connect
+        and lead to serious impact in a real backend system.
+    </p>
+
+    <div class="attack-chain-box">
+        <div class="attack-step">
+            <span class="step-number">1</span>
+            <div>
+                <h3>Exploit CSRF on Email Update</h3>
+                <p>An attacker tricks a logged-in user into changing their email to an attacker-controlled address.</p>
+            </div>
+        </div>
+
+        <div class="attack-step">
+            <span class="step-number">2</span>
+            <div>
+                <h3>Trigger Password Reset</h3>
+                <p>The attacker uses the insecure password reset flow that trusts only the email value.</p>
+            </div>
+        </div>
+
+        <div class="attack-step">
+            <span class="step-number">3</span>
+            <div>
+                <h3>Take Over the Account</h3>
+                <p>The attacker gains control of the victim account through the reset process.</p>
+            </div>
+        </div>
+
+        <div class="attack-impact">
+            <strong>Final Impact:</strong> Full account takeover caused by chaining two backend security flaws together.
+        </div>
+    </div>
+</section>
+{% endblock %}
